@@ -1,0 +1,22 @@
+{
+  "name": "class_backend",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "ts-node-dev index.ts",
+    "build": "babel src -d lib",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "typescript": "^4.6.3"
+  },
+  "dependencies": {
+    "apollo-server": "^3.6.7",
+    "graphql": "^16.3.0",
+    "pg": "^8.7.3",
+    "ts-node-dev": "^1.1.8",
+    "typeorm": "^0.3.4"
+  }
+}

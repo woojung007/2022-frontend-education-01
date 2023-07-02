@@ -11,15 +11,17 @@ export const Container = styled.div`
   width: 1200px;
   height: auto;
   margin-bottom: 280px;
-  border-bottom: 1px solid #bdbdbd ;
 `;
 
 export const CommentArea = styled.div`
   display: flex;
   width: 100%;
   height: 10vh;
+  border-bottom: 1px solid #bdbdbd;
+  padding-top: 10px;
 `;
 
+export const ModalInput = styled.input``;
 
 export const Profile = styled.div`
   width: 8vw;
@@ -36,7 +38,7 @@ export const Name = styled.div`
 `;
 
 export const Rating = styled.div`
-  height: 20%; 
+  height: 20%;
   background-color: aqua;
 `;
 
@@ -59,7 +61,6 @@ export const IconDiv = styled.div`
   justify-content: flex-end;
   width: 30vw;
   height: 20%;
-
 `;
 
 export const EditBtn = styled.button`
@@ -68,7 +69,5 @@ export const EditBtn = styled.button`
 `;
 
 export const DeleteBtn = styled.button`
-cursor: pointer;
+  cursor: pointer;
 `;
-
-

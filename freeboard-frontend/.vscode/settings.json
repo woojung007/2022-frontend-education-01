@@ -2,6 +2,15 @@
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "cSpell.ignoreWords": [
-        "antd"
+        "Daum",
+        "Signup",
+        "Wrapper",
+        "aliceblue",
+        "antd",
+        "bestboards",
+        "scroller",
+        "singup",
+        "zipcode",
+        "zonecode"
     ]
 }

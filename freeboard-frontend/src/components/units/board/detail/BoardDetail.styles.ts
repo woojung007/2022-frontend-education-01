@@ -1,4 +1,10 @@
 import styled from "@emotion/styled";
+import {
+  PaperClipOutlined,
+  EnvironmentOutlined,
+  LikeFilled,
+  DislikeFilled,
+} from "@ant-design/icons";
 
 export const BodyHTML = styled.div`
   width: 100vw;
@@ -21,47 +27,48 @@ export const ContentsContainer = styled.div`
   margin-bottom: 87px;
 `;
 
-export const IMG = styled.img`
-  cursor: pointer;
-`;
-
-//Header
+// Header
 export const Header = styled.div`
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
-  align-items: flex-end;
   width: 100%;
+  padding-top: 80px;
   padding-bottom: 20px;
   border-bottom: 1px solid #bdbdbd;
 `;
 
-export const LocationDiv = styled.div`
-  width: 376px;
-  height: 72px;
-  margin-right: 35px;
-  margin-top: 20px;
-  opacity: 0;
+export const HeaderTopDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  padding-bottom: 20px;
+  float: right;
 `;
 
 export const HeaderDiv = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  width: 80%;
+`;
+
+export const LocationDiv = styled.div`
+  color: black;
+  text-align: center;
 `;
 
 export const InfoDiv = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 25vw;
-  height: 60px;
+  width: 30vw;
   padding-right: 17px;
 `;
 
 export const InfoText = styled.div`
   width: 100%;
-  padding-left: 17px;
+  padding-left: 10px;
+  margin-left: 10px;
 `;
 
 export const Writer = styled.div`
@@ -83,13 +90,26 @@ export const IconDiv = styled.div`
   align-items: center;
 `;
 
-export const LinkImg = styled.div`
+export const LinkIcon = styled(PaperClipOutlined)`
   margin-right: 30px;
+  cursor: pointer;
+  color: #bdbdbd;
+  font-size: 35px;
+  :hover {
+    color: #000;
+  }
 `;
 
-export const LocationImg = styled.div``;
+export const LocationIcon = styled(EnvironmentOutlined)`
+  cursor: pointer;
+  color: #bdbdbd;
+  font-size: 30px;
+  &:hover {
+    color: #000;
+  }
+`;
 
-//content
+// content
 export const Contents = styled.div`
   display: flex;
   flex-direction: column;
@@ -104,6 +124,13 @@ export const BoardDiv = styled.div`
   width: 100%;
 `;
 
+export const ImageBoardDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+`;
+
 export const BoardTitle = styled.div`
   width: 100%;
   font-weight: 700, Bold;
@@ -111,34 +138,34 @@ export const BoardTitle = styled.div`
   padding: 80px 0 40px 0;
 `;
 
-export const BoardImage = styled.div`
+export const BoardImage = styled.img`
   width: 996px;
   height: 480px;
-  background-color: aliceblue;
   margin-bottom: 40px;
+  border-bottom: 1px solid #ebebeb;
 `;
 
 export const BoardContents = styled.div`
   width: 100%;
-  background-color: aliceblue;
+  border-bottom: 1px solid #ebebeb;
+
   margin-bottom: 40px;
 `;
 
-// export const BoardVideo = styled.div`
-//   width: 486px;
-//   height: 240px;
-//   background-color: aliceblue;
-//   margin-bottom: 163px;
-// `;
+export const BoardVideo = styled.div`
+  width: 486px;
+  height: 240px;
+  border-bottom: 1px solid #ebebeb;
+  margin-bottom: 163px;
+`;
 
-//좋아요
+// 좋아요
 export const BoardLike = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 180px;
+  width: 40vw;
   margin-bottom: 80px;
-  padding-top: 122px;
 `;
 
 export const LikeDiv = styled.div`
@@ -146,10 +173,16 @@ export const LikeDiv = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  width: 40vw;
+  height: 10vh;
 `;
 
-export const LikeBtn = styled.button`
-  border: none;
+export const LikeIcon = styled(LikeFilled)`
+  color: #ffd600;
+  cursor: pointer;
+  font-size: 30px;
+  &:hover {
+  }
 `;
 
 export const LikeNum = styled.div`
@@ -161,12 +194,20 @@ export const LikeNum = styled.div`
   color: #ffd600;
 `;
 
+export const DisLikeIcon = styled(DislikeFilled)`
+  color: #888;
+  font-size: 30px;
+  cursor: pointer;
+  &:hover {
+    color: black;
+  }
+`;
+
 export const DisLikeNum = styled.div`
   height: 27px;
   font-weight: 400;
   font-size: 18px;
   line-height: 27px;
-  text-align: center;
   color: #828282;
 `;
 
@@ -185,9 +226,6 @@ export const BtnDiv = styled.div`
   display: flex;
   justify-content: space-between;
   padding-bottom: 87px;
- 
-
-
 `;
 
 export const GoBtn = styled.button`

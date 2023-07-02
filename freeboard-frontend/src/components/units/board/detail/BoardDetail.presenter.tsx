@@ -1,20 +1,40 @@
-import { getDate } from "../../../commons/libraries/utils";
+import { getDate } from "../../../../commons/libraries/utils";
 import * as s from "./BoardDetail.styles";
 import { IBoardDetailUIProps } from "./BoardDetail.types";
-import ReactPlayer from 'react-player'
+import ReactPlayer from "react-player";
+import { Avatar, Tooltip } from "antd";
+import { UserOutlined } from "@ant-design/icons";
 
 export default function BoardDetailUI(props: IBoardDetailUIProps) {
+  const text = (
+    <span>
+      {" "}
+      {props.data?.fetchBoard?.boardAddress?.address}
+      <br />
+      {props.data?.fetchBoard?.boardAddress?.addressDetail}
+    </span>
+  );
+
+  const onClickLink = () => {
+    alert("링크입니다");
+  };
+
+  const onClickLocation = () => {
+    alert("위치입니다");
+  };
+
   return (
     <s.BodyHTML>
       <s.Container>
         <s.ContentsContainer>
           <s.Header>
-            <s.LocationDiv id="showLocation">
-              <s.IMG src="/location-kr.png" />
-            </s.LocationDiv>
             <s.HeaderDiv>
               <s.InfoDiv>
-                <s.IMG src="/user.png" />
+                <Avatar
+                  size="large"
+                  style={{ backgroundColor: "#888" }}
+                  icon={<UserOutlined />}
+                />
                 <s.InfoText>
                   <s.Writer>{props.data?.fetchBoard.writer}</s.Writer>
                   <s.Date>
@@ -22,16 +42,16 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
                   </s.Date>
                 </s.InfoText>
               </s.InfoDiv>
-
-              <s.IconDiv>
-                <s.LinkImg>
-                  <s.IMG src="/link.png" />
-                </s.LinkImg>
-                <s.LocationImg>
-                  <s.IMG src="/location.png" />
-                </s.LocationImg>
-              </s.IconDiv>
             </s.HeaderDiv>
+            <s.HeaderTopDiv>
+              <s.LinkIcon onClick={onClickLink} />
+
+              <s.LocationDiv>
+                <Tooltip placement="topRight" title={text}>
+                  <s.LocationIcon onClick={onClickLocation} />
+                </Tooltip>
+              </s.LocationDiv>
+            </s.HeaderTopDiv>
           </s.Header>
 
           <s.Contents>
@@ -39,9 +59,16 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
               <s.BoardTitle>{props.data?.fetchBoard.title}</s.BoardTitle>
             </s.BoardDiv>
 
-            <s.BoardDiv>
-              <s.BoardImage>BoardImage</s.BoardImage>
-            </s.BoardDiv>
+            <s.ImageBoardDiv>
+              {props.data?.fetchBoard.images
+                ?.filter((el: string) => el)
+                .map((el: string) => (
+                  <s.BoardImage
+                    key={el}
+                    src={`https://storage.googleapis.com/${el}`}
+                  />
+                ))}
+            </s.ImageBoardDiv>
 
             <s.BoardDiv>
               <s.BoardContents>
@@ -50,14 +77,15 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
             </s.BoardDiv>
 
             <s.BoardDiv>
-              {props.data?.fetchBoard.youtubeUrl &&(
-                <ReactPlayer 
-                url={props.data?.fetchBoard.youtubeUrl}
-                width="486px" height="240px"
-                className="react-player"
-                muted={true} 
-                playing={true} 
-                loop={true} 
+              {props.data?.fetchBoard.youtubeUrl && (
+                <ReactPlayer
+                  url={props.data?.fetchBoard.youtubeUrl}
+                  width="486px"
+                  height="240px"
+                  className="react-player"
+                  muted={true}
+                  playing={true}
+                  loop={true}
                 />
               )}
             </s.BoardDiv>
@@ -65,16 +93,12 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
             <s.BoardDiv>
               <s.BoardLike>
                 <s.LikeDiv>
-                  <s.LikeBtn onClick={props.onClickLikeUp}>
-                    <s.IMG src="/like.png" />
-                  </s.LikeBtn>
+                  <s.LikeIcon onClick={props.onClickLikeUp} />
                   <s.LikeNum>{props.data?.fetchBoard.likeCount}</s.LikeNum>
                 </s.LikeDiv>
 
                 <s.LikeDiv>
-                  <s.LikeBtn onClick={props.onClickDislikeUp}>
-                    <s.IMG src="/unlike.png" />
-                  </s.LikeBtn>
+                  <s.DisLikeIcon onClick={props.onClickDislikeUp} />
                   <s.DisLikeNum>
                     {props.data?.fetchBoard.dislikeCount}
                   </s.DisLikeNum>

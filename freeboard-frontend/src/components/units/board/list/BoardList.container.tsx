@@ -1,29 +1,29 @@
-import BoardListUI from './BoardList.presenter'
-import { useQuery } from '@apollo/client'
-import { FETCH_BOARDS } from './BoardList.queries'
-import { useRouter } from 'next/router'
-import { MouseEvent } from 'react'
+import BoardListUI from "./BoardList.presenter";
+import { useRouter } from "next/router";
+import { MouseEvent, useState } from "react";
+import { IBoardList } from "./BoardList.types";
 
+export default function BoardList(props: IBoardList) {
+  const [keyword, setKeyword] = useState("");
+  const router = useRouter();
 
+  const moveToWrite = () => {
+    router.push(`/boards/new`);
+  };
 
-export default function BoardList(){
+  const onClickMoveToBoardDetail = (event: MouseEvent<HTMLDivElement>) => {
+    router.push(`/boards/${(event.currentTarget as HTMLDivElement).id}`);
+  };
 
-    const router = useRouter()
-    const {data} = useQuery(FETCH_BOARDS)
-
-    const moveToWrite = () => {
-        router.push(`/boards/new`)
-    }
-
-   const onClickMoveToBoardDetail = (event:MouseEvent<HTMLDivElement>) => {
-       router.push(`/boards/${(event.target as HTMLDivElement).id}`);
-   }
-
-    return(
-        <BoardListUI
-        data = {data}
-        moveToWrite = {moveToWrite}
-        onClickMoveToBoardDetail={onClickMoveToBoardDetail}
-        />
-    )
+  return (
+    <BoardListUI
+      data={props.data}
+      moveToWrite={moveToWrite}
+      onClickMoveToBoardDetail={onClickMoveToBoardDetail}
+      keyword={keyword}
+      setKeyword={setKeyword}
+      refetch={props.refetch}
+      refetchBoardsCount={props.refetchBoardsCount}
+    />
+  );
 }

@@ -1,7 +1,8 @@
-//등록하기 페이지
+import { withAuth } from "../../../src/components/commons/hocs/withAuth";
 import BoardWrite from "../../../src/components/units/board/write/BoardWrite.container";
 
-export default function BoardNewPage() {
-  return <BoardWrite isEdit={false} />
-
+function BoardNewPage() {
+  return <BoardWrite isEdit={false} />;
 }
+
+export default withAuth(BoardNewPage);

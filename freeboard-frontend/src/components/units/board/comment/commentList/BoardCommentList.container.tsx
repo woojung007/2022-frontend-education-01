@@ -1,49 +1,100 @@
-//container
 import CommentListUI from "./BoardCommentList.presenter";
-import { useQuery, useMutation } from '@apollo/client';
-import { FETCH_BOARD_COMMENTS, DELETE_BOARD_COMMENT } from "./BoardCommentList.queries";
-import { useRouter } from 'next/router';
-import { useState } from 'react';
-import { MouseEvent } from "react";
-import {ICommentListProps} from './BoardCommentList.types'
+import { useQuery, useMutation } from "@apollo/client";
+import {
+  FETCH_BOARD_COMMENTS,
+  DELETE_BOARD_COMMENT,
+} from "./BoardCommentList.queries";
+import { useRouter } from "next/router";
+import { ChangeEvent, useState } from "react";
+import { Modal } from "antd";
+import {
+  IMutation,
+  IMutationDeleteBoardCommentArgs,
+  IQuery,
+  IQueryFetchBoardCommentsArgs,
+} from "../../../../../commons/types/generated/types";
 
+export default function CommentList() {
+  const router = useRouter();
+  const [isOpen, setIsOpen] = useState(false);
+  const [password, setPassword] = useState("");
+  const [commentId, setCommentId] = useState("");
 
-export default function CommentList(props: ICommentListProps){
-  const router = useRouter()
-  const [deleteComment] = useMutation(DELETE_BOARD_COMMENT)
+  const [deleteComment] = useMutation<
+    Pick<IMutation, "deleteBoardComment">,
+    IMutationDeleteBoardCommentArgs
+  >(DELETE_BOARD_COMMENT);
+  const { data, fetchMore } = useQuery<
+    Pick<IQuery, "fetchBoardComments">,
+    IQueryFetchBoardCommentsArgs
+  >(FETCH_BOARD_COMMENTS, {
+    variables: {
+      boardId: String(router.query.boardId),
+    },
+  });
 
+  const onClickDeleteComment = async () => {
+    try {
+      await deleteComment({
+        variables: { password: password, boardCommentId: commentId },
+        refetchQueries: [
+          {
+            query: FETCH_BOARD_COMMENTS,
+            variables: { boardId: String(router.query.boardId) },
+          },
+        ],
+      });
+      Modal.success({ content: "댓글이 삭제되었습니다." });
+      setIsOpen(false);
+    } catch (error: any) {
+      Modal.error({ content: "삭제 실패했습니다." });
+    }
+  };
 
+  // infinite-scroll
+  const onLoadMore = () => {
+    if (!data) return;
 
-  const {data} = useQuery(FETCH_BOARD_COMMENTS,{
-      variables:{
-        boardId: String(router.query.boardId)
-        }});
-    console.log("data", data)
+    fetchMore({
+      variables: {
+        boardId: String(router.query.boardId),
+        page: Math.ceil(data.fetchBoardComments.length / 10) + 1,
+      },
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (!fetchMoreResult?.fetchBoardComments)
+          return { fetchBoardComments: [...prev.fetchBoardComments] };
+        return {
+          fetchBoardComments: [
+            ...prev.fetchBoardComments,
+            ...fetchMoreResult.fetchBoardComments,
+          ],
+        };
+      },
+    });
+  };
 
+  const showModal = (event: any) => {
+    setIsOpen(true);
+    setCommentId(event.target.id);
+  };
 
+  const handleCancel = () => {
+    setIsOpen(false);
+  };
 
-    const onClickDeleteComment = (event: MouseEvent<HTMLButtonElement>) => {
-      console.log("commentId", router)
-      const deletePassword = prompt("비밀번호를 입력하세요");
-        deleteComment({
-          variables:{password: deletePassword, boardCommentId: (event.target as HTMLButtonElement).id},
-          refetchQueries: [{ query: FETCH_BOARD_COMMENTS,
-            variables:{boardId: String(router.query.boardId)}}]
-        });
-      }
-    
-
-
-
+  const onChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
+  };
 
   return (
-  <CommentListUI 
-    data={data}
-    onClickDeleteComment={onClickDeleteComment}
-    handleChange={props.handleChange}
-    value={props.value}
-
-  />
-)
-  
+    <CommentListUI
+      data={data}
+      onClickDeleteComment={onClickDeleteComment}
+      showModal={showModal}
+      handleCancel={handleCancel}
+      isOpen={isOpen}
+      onChangePassword={onChangePassword}
+      onLoadMore={onLoadMore}
+    />
+  );
 }

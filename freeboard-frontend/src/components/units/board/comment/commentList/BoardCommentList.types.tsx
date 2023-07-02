@@ -1,22 +1,12 @@
-import {MouseEvent} from 'react'
+import { ChangeEvent } from "react";
 
-
-
-//container
-export interface ICommentListProps{
-  boardId: string
-  handleChange?: (value:any) => void
-  value?: any
-}
-
-
-
-//presenter
-export interface ICommentListUIProps{
-  onClickDeleteComment: (event: MouseEvent<HTMLButtonElement>) => void
+export interface ICommentListUIProps {
   data?: any;
-  id?: any
-  handleChange?: (value:any) => void
-  value?: any
-  }
-  
+  id?: any;
+  onClickDeleteComment: () => void;
+  showModal: any;
+  handleCancel: () => void;
+  isOpen: boolean;
+  onChangePassword: (event: ChangeEvent<HTMLInputElement>) => void;
+  onLoadMore: () => void;
+}

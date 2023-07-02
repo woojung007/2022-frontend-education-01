@@ -1,6 +1,25 @@
 {
-    "cSpell.ignoreWords": [
-        "aliceblue",
-        "antd"
-    ]
+  "cSpell.ignoreWords": [
+    "Firestore",
+    "Searchbar",
+    "Useditem",
+    "Useditems",
+    "Zipcode",
+    "aliceblue",
+    "antd",
+    "bestboards",
+    "datas",
+    "daum",
+    "entitites",
+    "kakao",
+    "localstorage",
+    "mylocalstorage",
+    "paginations",
+    "qwer",
+    "scifibit",
+    "signup",
+    "typeorm",
+    "uuidv",
+    "zonecode"
+  ]
 }

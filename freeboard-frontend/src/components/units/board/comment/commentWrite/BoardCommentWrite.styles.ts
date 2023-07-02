@@ -1,17 +1,12 @@
 import styled from "@emotion/styled";
 import { ICommentCreateBtn } from "./BoardCommentWrite.types";
 
-export const BodyHTML = styled.div`
-  display: flex;
-  justify-content: center;
-  width: 100vw;
-  background: #ffffff;
-`;
-
 export const Container = styled.div`
+  margin: 0 auto;
   width: 1200px;
   height: auto;
-  margin-bottom: 45px;
+  padding-top: 30px;
+  padding-bottom: 60px;
 `;
 
 export const CommentDiv = styled.div`
@@ -23,6 +18,7 @@ export const CommentWriteEdit = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin: 0;
   width: 100%;
   height: 150px;
   padding-top: 40px;
@@ -49,10 +45,6 @@ export const CommentInput = styled.input`
   margin-bottom: 20px;
   margin-right: 24px;
 `;
-
-// export const StarRating = styled(Rate)`
-//   font-size: 10px;
-// `;
 
 export const CommentWriteDiv = styled.div`
   width: 100%;
